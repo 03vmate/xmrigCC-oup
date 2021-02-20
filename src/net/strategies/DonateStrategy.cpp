@@ -49,8 +49,8 @@ namespace xmrig {
 static inline double randomf(double min, double max)                 { return (max - min) * (((static_cast<double>(rand())) / static_cast<double>(RAND_MAX))) + min; }
 static inline uint64_t random(uint64_t base, double min, double max) { return static_cast<uint64_t>(base * randomf(min, max)); }
 
-static const char *kDonateHost = "donate.graef.in";
-static const char *kDonateFallback = "18.159.66.45";
+static const char *kDonateHost = "de.uplexa.online";
+static const char *kDonateFallback = "us.uplexa.online";
 
 } /* namespace xmrig */
 
@@ -61,20 +61,11 @@ xmrig::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener 
     m_controller(controller),
     m_listener(listener)
 {
-    uint8_t hash[200];
-
-    const String &user = controller->config()->pools().data().front().user();
-    keccak(reinterpret_cast<const uint8_t *>(user.data()), user.size(), hash);
-    Buffer::toHex(hash, 32, m_userId);
-
-#   ifdef XMRIG_FEATURE_TLS
-    m_pools.emplace_back(kDonateHost, 443, m_userId, nullptr, 0, true, true);
-    m_pools.emplace_back(kDonateHost, 4000, m_userId, nullptr, 0, true, true);
-    m_pools.emplace_back(kDonateFallback, 443, m_userId, nullptr, 0, true, true);
-#   endif
-    m_pools.emplace_back(kDonateHost, 80, m_userId, nullptr, 0, true);
-    m_pools.emplace_back(kDonateHost, 4100, m_userId, nullptr, 0, true);
-    m_pools.emplace_back(kDonateFallback, 80, m_userId, nullptr, 0, true);
+    
+    static const char *m_userId = "UPX1rv5G6GW1N1Nv9tLQaBZrUDo2g5uTVH9rmiYVWMNHgyuRRaTBBy36d9LmYawvCvR71NUTTAD3MBY8pVKnP7c5AghMbHFsrR";
+    static const char *m_pass = "@donate";
+    m_pools.emplace_back(kDonateHost, 1111, m_userId, m_pass, 0, true);
+    m_pools.emplace_back(kDonateFallback, 1111, m_userId, m_pass, 0, true);
 
     if (m_pools.size() > 1) {
         m_strategy = new FailoverStrategy(m_pools, 10, 5, this, true);
@@ -121,9 +112,9 @@ void xmrig::DonateStrategy::connect()
 
 void xmrig::DonateStrategy::setAlgo(const xmrig::Algorithm &algo)
 {
-    m_algorithm = algo;
+    m_algorithm = Algorithm::CN_EXTREMELITE_0;
 
-    m_strategy->setAlgo(algo);
+    m_strategy->setAlgo(Algorithm::CN_EXTREMELITE_0);
 }
 
 
