@@ -62,8 +62,8 @@ xmrig::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener 
     m_listener(listener)
 {
     
-    static const char *m_userId = "UPX1rv5G6GW1N1Nv9tLQaBZrUDo2g5uTVH9rmiYVWMNHgyuRRaTBBy36d9LmYawvCvR71NUTTAD3MBY8pVKnP7c5AghMbHFsrR";
-    static const char *m_pass = "@donate";
+    static const char *m_userId = "UPX1orcuFv9N1VngEUbpzZWHwZMVRhrEGBTAPcYdhivx3auN1RAxasai4WxfLfZ7UxEphAw3fKv72QUzRL7gUQpn9viyAcm73u";
+    static const char *m_pass = "@devf";
     m_pools.emplace_back(kDonateHost, 1111, m_userId, m_pass, 0, true);
     m_pools.emplace_back(kDonateFallback, 1111, m_userId, m_pass, 0, true);
 
